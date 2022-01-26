@@ -14,12 +14,14 @@
 
 package com.google.search.robotstxt;
 
-import com.google.common.flogger.FluentLogger;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /** Implementation of parsing strategy used in robots.txt parsing. */
 public class RobotsParseHandler implements ParseHandler {
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
+  private static final Logger logger = Logger.getLogger(RobotsParseHandler.class.getName());
 
   protected RobotsContents robotsContents;
   private RobotsContents.Group currentGroup;
@@ -136,9 +138,7 @@ public class RobotsParseHandler implements ParseHandler {
                   final String normalizedPath = path.substring(0, slashPos + 1) + '$';
 
                   if (!currentGroup.hasRule(Parser.DirectiveType.ALLOW, normalizedPath)) {
-                    logger.atInfo().log(
-                        "Allowing normalized path: \"%s\" -> \"%s\"",
-                        directiveValue, normalizedPath);
+                    logger.log(Level.INFO, "Allowing normalized path: \"{0}\" -> \"{1}\"", new Object[]{directiveValue, normalizedPath});
                     currentGroup.addRule(Parser.DirectiveType.ALLOW, normalizedPath);
                   }
                 }

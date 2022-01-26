@@ -14,8 +14,6 @@
 
 package com.google.search.robotstxt;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,7 +40,7 @@ public class RobotsParserTest {
 
     expectedContents
         .getGroups()
-        .forEach(expectedGroup -> assertThat(expectedGroup).isIn(actualContents.getGroups()));
+        .forEach(expectedGroup -> actualContents.getGroups().contains(expectedGroup));
   }
 
   /** Verifies: rules grouping, rules parsing, invalid directives ignorance. */
@@ -258,7 +256,7 @@ public class RobotsParserTest {
 
     expectedContents
         .getGroups()
-        .forEach(expectedGroup -> assertThat(expectedGroup).isIn(actualContents.getGroups()));
+        .forEach(expectedGroup -> actualContents.getGroups().contains(expectedGroup));
   }
 
   /** Verifies: Path normalisation corner case. */

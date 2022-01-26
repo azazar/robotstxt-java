@@ -14,19 +14,21 @@
 
 package com.google.search.robotstxt;
 
-import com.google.common.flogger.FluentLogger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class implementing matching logic based on directives priorities those calculation is delegated
  * to a {@link MatchingStrategy} class.
  */
 public class RobotsMatcher implements Matcher {
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
+  private static final Logger logger = Logger.getLogger(RobotsMatcher.class.getName());
 
   /** Class containing current match priorities */
   private static class Match {
@@ -73,7 +75,7 @@ public class RobotsMatcher implements Matcher {
     try {
       parsedUrl = new URL(url);
     } catch (final MalformedURLException e) {
-      logger.atWarning().log("Malformed URL: \"%s\", replaced with \"/\"", url);
+      logger.log(Level.WARNING, "Malformed URL: \"{0}\", replaced with \"/\"", url);
       return "/";
     }
     String path = parsedUrl.getPath();

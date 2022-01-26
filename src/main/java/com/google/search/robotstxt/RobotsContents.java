@@ -14,16 +14,18 @@
 
 package com.google.search.robotstxt;
 
-import com.google.common.flogger.FluentLogger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /** Representation of robots.txt contents: multiple groups of rules. */
 public class RobotsContents {
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
+  private static final Logger logger = Logger.getLogger(RobotsContents.class.getName());
   /**
    * Representation of robots.txt group of rules: multiple user-agents to which multiple rules are
    * applied.
@@ -91,7 +93,7 @@ public class RobotsContents {
           && (userAgent.length() == 1 || Character.isWhitespace(userAgent.charAt(1)))) {
 
         if (userAgent.length() > 1 && Character.isWhitespace(userAgent.charAt(1))) {
-          logger.atInfo().log("Assuming \"%s\" user-agent as \"*\"", userAgent);
+          logger.log(Level.INFO, "Assuming \"{0}\" user-agent as \"*\"", userAgent);
         }
 
         global = true;
